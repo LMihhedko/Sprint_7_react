@@ -1,9 +1,12 @@
 import './App.css';
 
 import React, {useState} from "react";
-import Linea from './components/Linea'; 
+import Linea from './components/Linea';
 import textData from './textos.json';
 import styled from 'styled-components';
+
+const Wrapper = styled.div`
+`;
 
 const Button = styled.button`  
     width:300px;
@@ -11,11 +14,13 @@ const Button = styled.button`
 `;
 
 function App() {
+            
     const [selected, setSelected] = useState(0);
- 
+       
     const handleQuotePrev = () => {
 
         setSelected(prev => {
+
             if (prev === 0){
                 return prev = 6;
             } else {
@@ -27,7 +32,6 @@ function App() {
     const handleQuoteNext = () => {
 
         setSelected(next => {
-            console.log(next)
 
             if (next === 6){
                 return next = 0;
@@ -38,16 +42,17 @@ function App() {
         });
     };
 
-    const quoteComponents = textData.map(phrase => <Linea quote= {phrase} />)
-
+    const quoteComponents = textData.map((phrase, index) =>  {
+        return <Linea quote= {phrase} index = {index} selected = {selected} /> });
+   
     return ( 
 
-      <div>
+      <Wrapper>
            <Button onClick={handleQuotePrev}>Anterior</Button>
             <Button onClick={handleQuoteNext}>Següent</Button>
-          {quoteComponents[selected]}
+          {quoteComponents}
          
-      </div>
+      </Wrapper>
        
       );
 }
